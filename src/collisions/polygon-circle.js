@@ -16,7 +16,7 @@ export const usePolygonCircle = (verticesGroups, circlePos, circleR, factor) => 
 const lineCircle = (pos1, pos2, circlePos, circleR, factor) => {
     const axes = pos2.sub(pos1)
     const dot = circlePos.sub(pos1).dot(axes) / axes.length2()
-    const clampedDot = Math.max(0, Math.min(1, dot))
+    const clampedDot = utils.clamp(dot, 0, 1)
     const closest = pos1.add(axes.scale(clampedDot))
     const distance = closest.sub(circlePos).length()
     
