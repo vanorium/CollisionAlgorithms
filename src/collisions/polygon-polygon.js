@@ -1,4 +1,5 @@
 import { utils } from "../math/utils.js"
+import { Vec2 } from "../math/vec2.js"
 
 // Modifed https://www.youtube.com/watch?v=-EsWKT7Doww&t=1550s
 export const usePolygonPolygon = (verticesGroupsA, verticesGroupsB) => {
@@ -9,7 +10,7 @@ export const usePolygonPolygon = (verticesGroupsA, verticesGroupsB) => {
             const AB = SAT(groupA, groupB, 1)
             const BA = SAT(groupB, groupA, -1)
             if(AB.separation <= 0 && BA.separation <= 0){
-                const t = AB.separation < BA.separation ? BA : AB
+                const t = AB.separation > BA.separation ? AB : BA 
                 if(t.separation < res.separation) res = t
             }
         }
@@ -28,22 +29,21 @@ const SAT = (verticesA, verticesB, factor) => {
         const vertexAc = verticesA[i]
         const vertexAn = verticesA[utils.modulo1(verticesA.length, i + 1)]
 
-        const axes = vertexAn.sub(vertexAc)
-        const normal = axes.normal()
-        const distance = vertexAc.distance(vertexAn)
+        const axes = new Vec2().copy(vertexAn).sub(vertexAc)
+        const tNormalizedNormal = axes.normal().normalize()
 
-        let minSep = Infinity
-        
+        let minSep = Infinity        
+
         for (let j = 0; j < verticesB.length; j++) {
             const vertexB = verticesB[j]
-            const sep = vertexB.sub(vertexAc).dot(normal)
+            const sep = new Vec2().copy(vertexB).sub(vertexAc).dot(tNormalizedNormal)
             minSep = Math.min(minSep, sep)
         } 
         
         if (minSep > separation) {
             separation = minSep
-            normalizedNormal = normal.normalize().scale(factor)
-            depth = -separation/distance
+            normalizedNormal = tNormalizedNormal.scale(factor)
+            depth = -separation
         }
     }
 

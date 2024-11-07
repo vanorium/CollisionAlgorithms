@@ -3,8 +3,7 @@ export const utils = {
         return Math.max(min, Math.min(max, val))
     },
     modulo1: (max, i) => {
-        if(i > max-1) return 0
-        return i
+        return i > max - 1 ? 0 : i
     }
     
 }

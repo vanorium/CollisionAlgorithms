@@ -30,11 +30,11 @@ const polygon3 = [
 
 
 const objects = [
-    new Polygon(polygon2, false, new Vec2(320+128, 320), false),
+    new Polygon(polygon2, false, new Vec2(320+128, 320), true),
     new Polygon(polygon3, true, new Vec2(320, 320), false),
     new Polygon(polygon3, true, new Vec2(320, 320+32), false),
     new Polygon(polygon1, false, new Vec2(320+128, 320+128), false),
-    new Circle(8, new Vec2(320+64, 320+128), true),
+    new Circle(8, new Vec2(320+64, 320+128), false),
     new Circle(32, new Vec2(320-32, 320+128), false)
 
 
@@ -97,6 +97,7 @@ const loop = () => {
                     console.log(collision.normalizedNormal, collision.depth)
                     obj1.translation = obj1.translation.sub(collision.normalizedNormal.scale(collision.depth))
                     obj2.translation = obj2.translation.add(collision.normalizedNormal.scale(collision.depth))
+
                 }
             }
         })        

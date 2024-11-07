@@ -8,7 +8,8 @@ export class Circle extends Shape{
     }
 
     getTransformedTranslation(){
-        return new Vec2(this.r, this.r).add(this.origin.scale(-2*this.r)).rotate(this.deg).add(this.translation)
+        const originCopy = new Vec2().copy(this.origin)
+        return new Vec2(this.r, this.r).add(originCopy.scale(-2*this.r)).rotate(this.deg).add(this.translation)
     }
 
     draw(ctx){

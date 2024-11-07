@@ -1,7 +1,7 @@
 import { Vec2 } from "../math/vec2.js"
-import { Shape } from "./shape.js";
-import earcut from 'earcut';
-import { utils } from "../math/utils.js";
+import { Shape } from "./shape.js"
+import earcut from 'earcut'
+import { utils } from "../math/utils.js"
 
 export class Polygon extends Shape {
     constructor(polygon, triangulate, translation, withControl) {
@@ -17,11 +17,11 @@ export class Polygon extends Shape {
     }
 
     #calculateArea(vertices) {
-        let area = 0;
+        let area = 0
 
         for (let i = 0; i < vertices.length; i++) {
             let j = utils.modulo1(vertices.length, i+1)
-            area += vertices[i].x * vertices[j].y - vertices[i].y * vertices[j].x;
+            area += vertices[i].x * vertices[j].y - vertices[i].y * vertices[j].x
         }
 
         return area/2
@@ -29,7 +29,7 @@ export class Polygon extends Shape {
 
     #ensureCW(vertices) {
         if (this.#calculateArea(vertices) > 0) {
-            return vertices.reverse();
+            return vertices.reverse()
         }
 
         return vertices;
@@ -64,7 +64,13 @@ export class Polygon extends Shape {
 
         this.verticesGroups.forEach((group, i) => {
             group.forEach((vertex) => {
-                res[i].push(vertex.sub(this.size.scaleVec(this.origin)).rotate(this.deg).add(this.translation))
+                const sizeCopy = new Vec2().copy(this.size)
+                const vertexCopy = new Vec2()
+                    .copy(vertex)
+                    .sub(sizeCopy.mul(this.origin))
+                    .rotate(this.deg)
+                    .add(this.translation)
+                res[i].push(vertexCopy)
             })
         })
 

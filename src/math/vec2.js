@@ -5,23 +5,33 @@ export class Vec2{
     }
 
     add(b){
-        return new Vec2(this.x + b.x, this.y + b.y)
+        this.x += b.x
+        this.y += b.y
+        return this
     }
 
     sub(b){
-        return new Vec2(this.x - b.x, this.y - b.y)
+        this.x -= b.x
+        this.y -= b.y
+        return this
     }
 
     scale(scalar){
-        return new Vec2(this.x * scalar, this.y * scalar)
+        this.x *= scalar
+        this.y *= scalar
+        return this
     }
 
-    scaleVec(b){
-        return new Vec2(this.x * b.x, this.y * b.y)
+    mul(b){
+        this.x *= b.x
+        this.y *= b.y
+        return this
     }
 
     div(divider){
-        return new Vec2(this.x / divider, this.y / divider)
+        this.x /= divider
+        this.y /= divider
+        return this
     }
 
     dot(b){
@@ -29,7 +39,10 @@ export class Vec2{
     }
 
     normal(){
-        return new Vec2(-this.y, this.x)
+        const t = this.x 
+        this.x =- this.y
+        this.y = t
+        return this
     }
 
     normalize(){
@@ -48,13 +61,20 @@ export class Vec2{
         return this.x**2 + this.y**2
     }
 
+    copy(b){
+        this.x = b.x
+        this.y = b.y
+        return this
+    }
+
     rotate(deg){
-        const radians = deg * Math.PI / 180;
-        const cos = Math.cos(radians);
-        const sin = Math.sin(radians);
+        const radians = deg * Math.PI / 180
+        const cos = Math.cos(radians)
+        const sin = Math.sin(radians)
         const rotatedX = this.x * cos - this.y * sin
         const rotatedY = this.x * sin + this.y * cos
-
-        return new Vec2(rotatedX, rotatedY)
+        this.x = rotatedX
+        this.y = rotatedY
+        return this
     }
 }
