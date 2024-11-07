@@ -36,8 +36,6 @@ const objects = [
     new Polygon(polygon1, false, new Vec2(320+128, 320+128), false),
     new Circle(8, new Vec2(320+64, 320+128), false),
     new Circle(32, new Vec2(320-32, 320+128), false)
-
-
 ]
 
 let controls = { up: false, left: false, down: false, right: false }
@@ -91,13 +89,13 @@ const loop = () => {
         objects.forEach((obj2) => {
             if (obj1 != obj2) {
                 const collision = defineCollision(obj1, obj2)
+
                 if (collision) {
                     obj1.color = 'rgb(255,0,0)'
                     obj2.color = 'rgb(255,0,0)'
                     console.log(collision.normalizedNormal, collision.depth)
                     obj1.translation = obj1.translation.sub(collision.normalizedNormal.scale(collision.depth))
                     obj2.translation = obj2.translation.add(collision.normalizedNormal.scale(collision.depth))
-
                 }
             }
         })        

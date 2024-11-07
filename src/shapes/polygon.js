@@ -65,11 +65,7 @@ export class Polygon extends Shape {
         this.verticesGroups.forEach((group, i) => {
             group.forEach((vertex) => {
                 const sizeCopy = new Vec2().copy(this.size)
-                const vertexCopy = new Vec2()
-                    .copy(vertex)
-                    .sub(sizeCopy.mul(this.origin))
-                    .rotate(this.deg)
-                    .add(this.translation)
+                const vertexCopy = new Vec2().copy(vertex).sub(sizeCopy.mul(this.origin)).rotate(this.deg).add(this.translation)
                 res[i].push(vertexCopy)
             })
         })

@@ -73,8 +73,10 @@ export class Vec2{
         const sin = Math.sin(radians)
         const rotatedX = this.x * cos - this.y * sin
         const rotatedY = this.x * sin + this.y * cos
+        
         this.x = rotatedX
         this.y = rotatedY
+
         return this
     }
 }
